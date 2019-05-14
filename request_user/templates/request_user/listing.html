@@ -1,0 +1,8 @@
+Listing
+
+{% load staticfiles %}
+{% for data in request_user %}
+     {% if data.name %}
+         <a href="{{ data.get_absolute_url }}">{{ data.name }}</a><br/>
+      {% endif %}
+ {% endfor %}

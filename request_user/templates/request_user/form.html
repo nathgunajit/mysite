@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" >
+</head>
+<body>
+<div class="container">
+
+<h1>Registration Form</h1>
+
+<form action="{% url 'request_user:register' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="col-sm-6">
+            <label for="email">Name:</label>
+            <input type="text" name="name" class="form-control" id="name">
+     </div>
+  </div>
+  <div class="form-group">
+       <div class="col-sm-6">
+            <label for="email">Email:</label>
+            <input type="email" name="email" class="form-control" id="email">
+        </div>
+  </div>
+    <div class="form-group">
+        <div class="col-sm-6">
+            <label for="pwd">Mobile No:</label>
+            <input type="text" name="mobile_no" class="form-control" id="pwd">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-6">
+            <label for="email">Address:</label>
+            <textarea name="address" class="form-control" id="address"></textarea>
+        </div>
+    </div>
+     <div class="form-group">
+         <div class="col-sm-6">
+            <label for="email">Description:</label>
+              <textarea name="description" class="form-control" id="description"></textarea>
+        </div>
+     </div>
+     <div class="form-group">
+         <div class="col-sm-6">
+            <label for="email">Pin Code:</label>
+            <input type="text" name="pin_code" class="form-control" id="pin_code">
+         </div>
+     </div>
+    <div class="form-group">
+        <div class="col-sm-6">
+        <label for="email">Services Need:</label>
+        <input type="text" name="services_need" class="form-control" id="services_need">
+        </div>
+    </div>
+     <div class="form-group">
+         <div class="col-sm-6">
+            <label for="email">Booking Date:</label>
+            <input type="date" name="booking_date" class="form-control" id="booking_date">
+         </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-6">
+         <label for="email">Services Category:</label>
+         <select name="services_cat_id" class="form-control">
+             <option value="1">Services Category 1</option>
+             <option value="2">Services Category 2</option>
+             <option value="3">Services Category 3</option>
+         </select>
+        </div>
+    </div>
+     <div class="form-group">
+         <div class="col-sm-6">
+            <label for="email">Services:</label>
+                <select name="services_id" class="form-control">
+                    <option value="1">Services 1</option>
+                    <option value="2">Services 2</option>
+                    <option value="3">Services 3</option>
+                </select>
+        </div>
+        </div>
+    <div class="form-group">
+        <div class="col-sm-6">
+         <div class="checkbox" >
+            <label><input type="checkbox" name="" value="">Option 1</label>
+         </div>
+            <div class="checkbox">
+            <label><input type="checkbox"  name="" value="">Option 2</label>
+        </div>
+        <div class="checkbox disabled">
+            <label><input type="checkbox"  name="" value="">Option 3</label>
+        </div>
+        </div>
+    </div>
+        <div class="form-group">
+            <div class="col-sm-6">
+            <label for="email">Services Category:</label>
+                 <div class="col-sm-3">
+                    <label class="radio-inline">
+                        <input type="radio" name="veg_non_veg" value="1" class="form-control" >Veg
+                    </label>
+                </div>
+                <div class="col-sm-3">
+                    <label class="radio-inline">
+                        <input type="radio" name="veg_non_veg" value="2" class="form-control">Non Veg
+                    </label>
+                </div>
+            </div>
+        </div>
+  <!--<div class="form-group">
+    <label for="pwd">Password:</label>
+    <input type="password" name="password" class="form-control" id="pwd">
+  </div>
+    <div class="form-group">
+    <label for="pwd">Confirm Password:</label>
+    <input type="password" name="confirm_password" class="form-control" id="pwd">
+  </div>-->
+  <div class="checkbox">
+                  <div class="col-sm-6">
+                        <label><input type="checkbox" name="status"> Is Active</label>
+                  </div>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

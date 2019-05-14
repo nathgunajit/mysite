@@ -1,0 +1,383 @@
+{% extends 'theme.html' %}
+{% block title %} Home Page {% endblock title %}
+{% load staticfiles %}
+{% block content %} <!-- hero-section -->
+    <div class="hero-section">
+        <div class="container">
+            <div class="row">
+                <div class="offset-xl-1 col-xl-10 offset-lg-1 col-lg-10 col-md-12 col-sm-12 col-12">
+                    <!-- search-block -->
+                    <div class="">
+                        <div class="text-center search-head">
+                            <h1 class="search-head-title">{{ banners.title }}</h1>
+                            <p class="d-none d-xl-block d-lg-block d-sm-block text-white">{{ banners.description }}</p>
+                        </div>
+                        <!-- /.search-block -->
+                        <!-- search-form -->
+                        <div class="search-form">
+                            <form class="form-row" action="{% url 'home_search' %}" method="POST">
+                            {% csrf_token %}
+                                <div class="col-xl-5 col-lg-4 col-md-4 col-sm-12 col-12">
+                                    <!-- select -->
+                                    <select name="subcategory" class="wide">
+                                        {% for data in subcategory %}
+                                             {% if data.name %}
+                                                  <option value="{{ data.id }}">{{ data.name }} </option>
+                                             {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-xl-5 col-lg-4 col-md-4 col-sm-12 col-12">
+                                    <!-- select -->
+                                    <select name="location" class="wide">
+                                           {% for data in location %}
+                                             {% if data.name %}
+                                                  <option value="{{ data.id }}"> {{ data.name }} </option>
+                                             {% endif %}
+                                            {% endfor %}
+
+                                    </select>
+                                </div>
+                                <!-- button -->
+                                <div class="col-xl-2 col-lg-4 col-md-4 col-sm-12 col-12">
+                                    <button class="btn btn-default btn-block" type="submit">Search</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /.search-form -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.hero-section -->
+    <!-- feature-section -->
+    <div class="bg-white space-small">
+        <div class="container">
+            <div class="row">
+                {% for data in block_home %}
+                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 mb20">
+                    <div class="icon-3x mb30 text-default">
+                        {% if data.font_icon %}
+                            {{ data.font_icon|safe }}
+                        {% else %}
+                            <i class="icon-051-love-birds"></i>
+                         {% endif %}
+                    </div>
+                    <h3> {{ data.title|safe }}</h3>
+                    <p>{{ data.small_description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- /.feature-section -->
+    <div class="space-medium pdb0">
+        <div class="container">
+            <div class="row">
+                <div class="offset-xl-2 col-xl-8 offset-lg-2 col-lg-8 col-md-12 col-sm-12 col-12">
+                    <div class="section-title text-center">
+                        <!-- section title start-->
+                        <h2 class="mb10">Latest Wedding Venue</h2>
+                        <p>A short description for showcase of latest wedding venue. </p>
+                    </div>
+                    <!-- /.section title start-->
+                </div>
+            </div>
+            <div class="venue-thumbnail-carousel">
+                <div class="owl-carousel owl-theme owl-venue-thumb">
+                     {% for data in venue %}
+                    <div class="item">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="vendor-thumbnail">
+                                <!-- Vendor thumbnail -->
+                                <div class="vendor-img zoomimg">
+                                    <!-- Vendor img -->
+                                    <a href="#"><img src="{{ data.image.url }}" alt=""  class="img-fluid"></a>
+                                    <div class="wishlist-sign"><a href="#" class="btn-wishlist"><i class="fa fa-heart"></i></a></div>
+                                </div>
+                                <!-- /.Vendor img -->
+                                <div class="vendor-content">
+                                    <!-- Vendor Content -->
+                                    <h2 class="vendor-title"><a href="#" class="title">{{ data.title }}</a></h2>
+                                    <p class="vendor-address">{{ data.loc_id.name }}, {{ data.city_id.name }}</p>
+                                </div>
+                                <!-- /.Vendor Content -->
+                                <div class="vendor-meta">
+                                    <div class="vendor-meta-item vendor-meta-item-bordered">
+                                        <span class="vendor-price">
+                                   Rs. {{ data.price_start }}
+                                </span>
+                                        <span class="vendor-text">Start From</span></div>
+                                    <div class="vendor-meta-item vendor-meta-item-bordered">
+                                        <span class="vendor-guest">
+                                    {{ data.total_capacity }} +
+                                </span>
+                                        <span class="vendor-text">Guest</span>
+                                    </div>
+                                    <div class="vendor-meta-item vendor-meta-item-bordered">
+                                        <span class="rating-star">
+                                    <i class="fa fa-star rated"></i>
+                                    <i class="fa fa-star rated"></i>
+                                    <i class="fa fa-star rated"></i>
+                                    <i class="fa fa-star rated"></i>
+                                    <i class="fa fa-star rate-mute"></i>
+                                    </span>
+                                        <span class="rating-count vendor-text">(20)</span></div>
+                                </div>
+                            </div>
+                            <!-- /.Vendor thumbnail -->
+                        </div>
+                    </div>
+                     {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /. venue-thumbnail-section-->
+    <!-- venue-categoris-section-->
+    <div class="space-small">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="offset-xl-2 col-xl-8 offset-lg-2 col-lg-8 col-md-12 col-sm-12 col-12">
+                    <div class="section-title text-center">
+                        <!-- section title start-->
+                        <h2 class="mb10">Venues by Category</h2>
+                        <p>You can browse all venues by category with thumbnail image and category name.</p>
+                    </div>
+                    <!-- /.section title start-->
+                </div>
+            </div>
+            <div class="row">
+                <!-- venue-categoris-block-->
+{#            {% for data in sub_count_new %}#}
+{#                    {{ data.subcategory.title }} <br/>#}
+{#                    {{ data.image }} <br/>#}
+{#                     {{ data.subcategory.image.url }} <br/>#}
+{#                {{ data.count_total }}<br/>#}
+{#            {% endfor %}#}
+
+{#             {% for data in sub_count %}#}
+{#                    {{ data.subcategory.title }} <br/>#}
+{#                    {{ data.image }} <br/>#}
+{#                   {{ data.subcategory.image.url }} <br/>#}
+{#                   {{ data.count_total }}<br/>#}
+{#            {% endfor %}#}
+
+                {% for data in sub_count %}
+                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+                    <div class="venue-categories-block zoomimg">
+                        <div class="venue-categories-img"> <a href="#"><img src="{{ data.subcategory.image.url }}" alt="" class="img-fluid"></a>
+                            <div class="venue-categories-overlay">
+                                <h3 class="mb0"><a href="#" class="venue-categories-title">{{ data.subcategory.title }} ({{ data.count_total }})</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.venue-categoris-block-->
+                </div>
+              {% endfor %}
+            </div>
+            <!-- venue-categoris-btn -->
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center mt60"><a href="#" class="btn btn-default btn-lg">View All category</a></div>
+            </div>
+            <!-- /.venue-categoris-btn -->
+        </div>
+        <!-- /.venue-categoris-section-->
+        <!-- real-wedding-section-->
+        <div class="space-small">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb40">
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="offset-xl-2 col-xl-8 offset-lg-2 col-lg-8 col-md-12 col-sm-12 col-12">
+                        <div class="section-title text-center">
+                            <!-- section title start-->
+                            <h2 class="mb10">Real Weddings</h2>
+                            <p>Real inspiration from the real wedding couple. Get ideas for grooms and brides.</p>
+                        </div>
+                        <!-- /.section title start-->
+                    </div>
+                </div>
+                <div class="row">
+                    {% for data in wedding_pics %}
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+                    <div class="real-wedding-block">
+                        <!-- real wedding block -->
+                        <div class="real-wedding-img zoomimg">
+                            <!-- real wedding img -->
+                             {% if data.name %}
+                            <a href="#"><img src="{{ data.image.url }}" alt="Wedding Vendor & Supplier Directory HTML Template "  class="img-fluid"></a>
+                           {% else %}
+                             <a href="#"><img src="{% static '/images/post-img-4.jpg' %}" alt="Wedding Vendor & Supplier Directory HTML Template "  class="img-fluid"></a>
+                            {% endif %}
+                        </div>
+                        <!-- /.real wedding img -->
+                        <div class="real-wedding-content ">
+                            <!-- real wedding content -->
+                            <h3 class="real-wedding-title"><a href="#" class="title">{{ data.title }}</a></h3>
+                            <div class="real-wedding-meta"><span class="real-wedding-date">{{ data.pretty_wedding_date }}</span>
+                            <span class="real-wedding-place pl-3"><i class="fas fa-map-marker-alt pr-1"></i>{{ data.location }}</span>
+                            </div>
+                        </div>
+                        <!-- /.real wedding img -->
+                    </div>
+                    <!-- /.real wedding block -->
+                </div>
+              {% endfor %}
+
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+                        <a href="#" class="btn btn-default btn-lg">See more Real Weddings</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.real-wedding-section-->
+    <!-- feature-section-->
+    <div class="bg-white space-medium">
+        <div class="container">
+            <div class="row">
+                <div class="offset-xl-2 col-xl-8 offset-lg-2 col-lg-8 col-md-12 col-sm-12 col-12">
+                    <div class="section-title text-center">
+                        <!-- section title start-->
+                        <h2 class="mb10">How it Works</h2>
+                        <p>Simple and easy step to get started your wedding planning.</p>
+                    </div>
+                    <!-- /.section title start-->
+                </div>
+            </div>
+            <div class="row">
+                {% for data in home_it_works %}
+                <!-- feature-block-->
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                    <div class="feature feature-icon-block">
+                        <div class="feature-icon">{{ data.font_icon|safe }}</div>
+                        <div class="feature-content">
+                            <h3 class="mb-3">{{ data.title }}</h3>
+                            <p>{{ data.small_description }}</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.feature-block-->
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- /.feature-section-->
+    <!-- Testimonial-section -->
+    <div class="space-medium bg-yellow-light">
+        <div class="container">
+            <div class="row">
+                <div class="offset-xl-2 col-xl-8 offset-lg-2 col-lg-8 col-md-12 col-sm-12 col-12">
+                    <div class="section-title text-center">
+                        <!-- section title start-->
+                        <h2 class="mb10">Testimonials from Real Brides</h2>
+                        <p>Find out what about real couple have to say about related.</p>
+                    </div>
+                    <!-- /.section title start-->
+                </div>
+            </div>
+            <div class="row">
+                 {% for data in testimonials %}
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="testimonial-block">
+                        <!-- testimonial block -->
+                        <div class="testimonial-icon"> <i class="fa fa-quote-right fa-default"></i></div>
+                        <h3 class="testimonial-name">{{ data.name }}</h3>
+                        <p class="testimonial-text">“{{ data.description }}”</p>
+                        <div class="testimonial-pic">
+                            {% if data.image %}
+                                  <img src="{{ data.image.url }}" class="rounded-circle" alt=""></div>
+                            {% else %}
+                                  <img src="{% static '/images/testimonial-1.jpg' %}" class="rounded-circle" alt=""></div>
+                            {% endif %}
+
+                        <div class="testimonial-meta">
+                            <h5 class="mb0">Venue Vendor</h5>
+                            <p class="testimonial-small-text mb0">Ahmedabad </p>
+                            <span class="rating-star">
+                                    <i class="fa fa-star rated"></i>
+                                    <i class="fa fa-star rated"></i>
+                                    <i class="fa fa-star rated"></i>
+                                    <i class="fa fa-star rated"></i>
+                                    <i class="fa fa-star rated"></i>
+                                    </span>
+                        </div>
+                        <!-- /.testimonial block -->
+                    </div>
+                </div>
+                {% endfor %}
+
+
+
+            </div>
+        </div>
+    </div>
+    <!-- /.Testimonial-section -->
+    <!-- blog-post-section -->
+    <div class="space-medium bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="offset-xl-2 col-xl-8 offset-lg-2 col-lg-8 col-md-12 col-sm-12 col-12">
+                    <div class="section-title text-center">
+                        <!-- section title start-->
+                        <h2 class="mb10">Wedding Tips and News</h2>
+                        <p> The ultimate wedding guide and tips for wedding couples.</p>
+                    </div>
+                    <!-- /.section title start-->
+                </div>
+            </div>
+            <div class="row">
+                 {% for data in blogs %}
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="post-block text-center">
+                        <div class="post-img mb30 zoomimg">
+                            {% if data.image %}
+                                <a href="#"><img src="{{ data.image.url }}" alt="" class="img-fluid"></a>
+                            {% else %}
+                                <a href="#"><img src="{% static '/images/post-img-1.jpg' %}" alt="" class="img-fluid"></a>
+                            {% endif %}
+                        </div>
+                        <h4><a href="#" class="title">{{ data.title }}</a></h4>
+                        <!-- post block -->
+                        <div class="meta">
+                            <span class="meta-category">{{ data.category }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- /.blog-post-section -->
+    <!-- social-media-section -->
+    <div class="social-media-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-7 col-lg-7 col-md-6 col-sm-6 col-12">
+                    <h3 class="text-white mb0 mt10">Would you like to connect with us</h3>
+                </div>
+                <div class="col-xl-5 col-lg-5 col-md-6 col-sm-6 col-12 text-right">
+                    <div class="social-icons">
+                        <a href="#" class="icon-square"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="icon-square"><i class="fab fa-twitter"></i> </a>
+                        <a href="#" class="icon-square"><i class="fab fa-google-plus-g"></i></a>
+                        <a href="#" class="icon-square"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="icon-square"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.social-media-section -->
+
+
+{%endblock %}

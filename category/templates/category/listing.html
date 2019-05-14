@@ -1,0 +1,7 @@
+{% load staticfiles %}
+{% for data in category %}
+     {% if data.name %}
+        <!--<a href="{% url 'category:details' data.id %}">{{ data.name }}</a>-->
+         <a href="{{ data.get_absolute_url }}">{{ data.name }}</a><br/>
+      {% endif %}
+ {% endfor %}
